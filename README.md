@@ -1,10 +1,8 @@
 # visitour
 
-travel app ui designing using velocity x framework in flutter
+Travel app ui designing  in flutter using Velocity - X 🔥 
+# ![Screenshot 2022-04-15 at 12-59-35 VelocityX](https://user-images.githubusercontent.com/85099922/163539744-892da45e-957b-4548-87f0-d7437e841ae7.png)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
