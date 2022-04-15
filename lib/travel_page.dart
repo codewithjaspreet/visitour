@@ -11,13 +11,26 @@ class TravelPage extends StatefulWidget {
 
 class _TravelPageState extends State<TravelPage> with TickerProviderStateMixin {
   final image = 'https://avatars.githubusercontent.com/u/85099922?v=4';
+  String img1 =
+      'https://images.unsplash.com/photo-1543832923-44667a44c804?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=744&q=80';
+  String img2 =
+      'https://images.unsplash.com/photo-1588096344356-9b497caeeb64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=484&q=80';
   late TabController tabController;
+
+  double anim = 1.0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     tabController = TabController(length: 4, vsync: this);
+
+    // withAnimation(vsync: this, tween: Tween(begin: 1.0,end: 0.0), callBack: (animationVal,controllerVal){
+    //   anim = animationVal;
+    //   setState(() {
+    //
+    //   });
+    // })
   }
 
   @override
@@ -55,8 +68,9 @@ class _TravelPageState extends State<TravelPage> with TickerProviderStateMixin {
               .white
               .xl2
               .make()
-              .p8(),
-          "Tech Enthusiast".text.white.make(),
+              .p8()
+              .offset(offset: Offset(-300, anim * 0.0)),
+          "Crazy Traveller".text.white.make(),
           VxTextField(
             borderType: VxTextFieldBorderType.none,
             borderRadius: 18,
@@ -113,37 +127,19 @@ class _TravelPageState extends State<TravelPage> with TickerProviderStateMixin {
               ),
               TabBarView(
                 children: ["1", "2", "3", "4"]
-                    .map((e) => VStack([
-                          "Discover Places in London"
-                              .text
-                              .gray600
-                              .xl2
-                              .bold
-                              .make(),
-                          HStack([
-                            Image.network(image)
-                                .wh(context.percentWidth * 35, 100)
-                                .cornerRadius(10),
-                            20.widthBox,
-                            VStack(
-                              [
-                                "Tower Bridge".text.semiBold.make(),
-                                3.heightBox,
-                                "Southwork".text.make().shimmer(),
-                                5.heightBox,
-                                HStack([
-                                  VxRating(
-                                    onRatingUpdate: (value) {},
-                                    size: 13,
-                                  ),
-                                  5.heightBox,
-                                  "(100)".text.xs.gray600.make(),
-                                ])
-                              ],
-                              crossAlignment: CrossAxisAlignment.start,
-                            ).expand()
-                          ]).cornerRadius(8).backgroundColor(Vx.gray200)
-                        ]).p16())
+                    .map((e) => SingleChildScrollView(
+                          child: VStack([
+                            "Discover Places".text.gray600.xl2.bold.make(),
+                            20.heightBox,
+                            TravelCard(
+                                title: "Golden Temple",
+                                subtitle: 'Punjab',
+                                img: img2),
+                            15.heightBox,
+                            TravelCard(
+                                title: "Tower", subtitle: 'England', img: img1),
+                          ]).p16(),
+                        ))
                     .toList(),
                 controller: tabController,
               ).expand()
@@ -152,5 +148,38 @@ class _TravelPageState extends State<TravelPage> with TickerProviderStateMixin {
         ).expand(),
       ]),
     );
+  }
+}
+
+class TravelCard extends StatelessWidget {
+  late final String title, subtitle, img;
+
+  TravelCard({required this.title, required this.subtitle, required this.img});
+  @override
+  Widget build(BuildContext context) {
+    return HStack([
+      Image.network(
+        img,
+        fit: BoxFit.cover,
+      ).wh(context.percentWidth * 35, 100).cornerRadius(10),
+      20.widthBox,
+      VStack(
+        [
+          title.text.semiBold.make(),
+          3.heightBox,
+          subtitle.text.make().shimmer(),
+          5.heightBox,
+          HStack([
+            VxRating(
+              onRatingUpdate: (value) {},
+              size: 13,
+            ),
+            5.heightBox,
+            "(100)".text.xs.gray600.make(),
+          ])
+        ],
+        crossAlignment: CrossAxisAlignment.start,
+      ).expand()
+    ]).cornerRadius(8).backgroundColor(Vx.gray200);
   }
 }
