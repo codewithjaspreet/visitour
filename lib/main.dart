@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import "package:velocity_x/velocity_x.dart";
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:visitour/travel_page.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,7 +16,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ,
+      home: TravelPage(),
+      theme: ThemeData(
+          primaryColor: Colors.orange,
+          fontFamily: GoogleFonts.lato().fontFamily,
+          colorScheme:
+              ColorScheme.fromSwatch().copyWith(secondary: Colors.purple)),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
